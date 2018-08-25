@@ -1,5 +1,8 @@
 import React from 'react';
-import { FormGroup, InputGroup, FormControl,  Button, Row , Col  } from 'react-bootstrap'
+import { FormGroup, InputGroup, FormControl,  Button, Row , Col ,Jumbotron  } from 'react-bootstrap'
+import './Styles/Help.css';
+
+
 class Help extends React.Component {
   constructor(props) {
     super(props);
@@ -7,33 +10,34 @@ class Help extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
+      
+      <Jumbotron>
+        <div>  
                   <h2>TRUNG TÂM TRỢ GIÚP KHÁCH HÀNG</h2>
-
-          <form>
-          <Col xs={6} md={4}>
-            <FormGroup>
-              <InputGroup>
-                <InputGroup.Addon >   What's your problem?   </InputGroup.Addon>
+                  
+          
+         
+            <FormGroup >
+              <InputGroup >
+                <InputGroup.Addon  >   Vấn đề là gì?   </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon>  Your   Name   </InputGroup.Addon>
+                <InputGroup.Addon> ..Tên và Họ..  </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon>    Phone number    </InputGroup.Addon>
+                <InputGroup.Addon>    Số điện thoại    </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon>    Address    </InputGroup.Addon>
+                <InputGroup.Addon>   .Địa chỉ nhà.   </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
@@ -45,20 +49,18 @@ class Help extends React.Component {
                                            
                     <Col xs={12} md={4} sm={3} lg={4}></Col>
             </Row>
-            </Col>
-
-            <h2></h2>
-
-
-
-   
-
             
-          </form>;
-                </div>
+
+          
+
+       
       </div>
+      </Jumbotron>
+      
     )
+    
   }
+  
 }
 
 export default Help;

@@ -10,11 +10,16 @@ import "./Styles/ProductDetail.css";
 class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {Id: null, info: null};
-
+        this.state = {Id: null, info: null,isEdit:false};
+        
         this.state.Id = this.getIdFromQueryString();
+        if(this.state.Id=== 0) {
+            this.state.isEdit =true;
+        }
         this.state.info = this.getProduct();
+        this.handleChange = this.handleChange.bind(this);
     }
+
 
     buildProductDetail() {
         let productDetail = [];
@@ -48,7 +53,8 @@ class ProductDetail extends React.Component {
         if(Obj.id) {
             Obj.id = parseInt(Obj.id);
         }
-        return Obj.id || null;
+        return Obj.id !==undefined?Obj.id:null;
+       /* return Obj.id || null;*/
     }
 
     buildImage() {

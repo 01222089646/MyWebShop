@@ -10,7 +10,7 @@ class Home extends React.Component {
     return (
       <div>
             <Grid>
-  <Row>
+  <Row fluid="true">
     <Col xs={6} md={4}>
       <Thumbnail align="center">
           <Image src="http://www.halfyourplate.ca/wp-content/uploads/2014/12/acerola_small.gif" responsive />
@@ -49,8 +49,7 @@ class Home extends React.Component {
       </Thumbnail>
     </Col>
   </Row>
-</Grid>;
-<Grid>
+
   <Row>
     <Col xs={6} md={4}>
       <Thumbnail align="center" >
@@ -89,8 +88,7 @@ class Home extends React.Component {
       </Thumbnail>
     </Col>
   </Row>
-</Grid>;
-<Grid>
+
   <Row>
     <Col xs={6} md={4}>
       <Thumbnail align="center" >
@@ -128,8 +126,7 @@ class Home extends React.Component {
       </Thumbnail>
     </Col>
   </Row>
-</Grid>;
-<Grid>
+
   <Row>
     <Col xs={6} md={4}>
       <Thumbnail align="center">
@@ -168,8 +165,7 @@ class Home extends React.Component {
       </Thumbnail>
     </Col>
   </Row>
-</Grid>;
-<Grid>
+
   <Row>
     <Col xs={6} md={4}>
       <Thumbnail align="center" >

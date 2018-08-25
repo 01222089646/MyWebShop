@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import { 
     Form, 
     FormGroup, 
@@ -9,7 +10,8 @@ import {
     Checkbox, 
     Button,
     Grid,
-    Row
+    Row,
+    
 } from 'react-bootstrap';
 
 import './Styles/LoginForm.css';
@@ -76,7 +78,7 @@ class LoginForm extends Component {
             return (<div></div>);
         }
         return (
-            <Form horizontal className="app-login-form">
+           <Form horizontal className="app-login-form">
             <Grid>
                 <Row className="show-grid">
                     <Col xs={0} md={4} sm={3} lg={4}></Col>
@@ -128,7 +130,14 @@ class LoginForm extends Component {
                 </Row>
             </Grid>
             </Form>
+
+
+
+            
+
+
         );
+       
     }
 }
 

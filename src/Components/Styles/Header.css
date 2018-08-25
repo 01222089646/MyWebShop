@@ -1,5 +1,5 @@
 .navbar-default .navbar-brand {
-    color: rgb(241, 14, 14) !important;
+    color: rgb(97, 241, 14) !important;
 }
 .navbar-default .navbar-nav>li>a {
     color: rgb(190, 228, 22) !important;
@@ -22,4 +22,7 @@
 }
 .primary-color{
     background-color: #64f77c;
+}
+.navbar-profile{
+    background-color: #eb3b0f;
 }
