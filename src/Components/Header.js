@@ -27,7 +27,7 @@ class Header extends React.Component {
 
     componentDidMount() {
         if(this.state.logged === false) {
-            if(window.location.pathname != "/login") {
+            if(window.location.pathname !== "/login") {
                 window.location.href = "/login";
             }
         }
@@ -76,14 +76,14 @@ class Header extends React.Component {
     render() {
         let menus = [];
         let headerTemplate = [];
-        if(this.state.logged === true && window.location.pathname != "/login") {
+        if(this.state.logged === true && window.location.pathname !== "/login") {
             menus = this.buildMenus();
             headerTemplate.push((
                 <Navbar key={1} fluid={true} className="primary-color">
                     <Navbar.Header>
                         <Navbar.Brand>
                             <a href="/">
-                                <img className="app-logo" src="images/logo.png" />
+                                <img className="app-logo" src="images/apple-fruit-food-vitamin-healthy-31182.png" alt="" />
                             </a>
                         </Navbar.Brand>
                     </Navbar.Header>

@@ -46,7 +46,7 @@ class Product extends React.Component {
                         <Table className="product-list" striped bordered condensed hover>
                             <thead>
                                 <tr>
-                                <th>#</th>
+                                <th>Number</th>
                                 <th>Product Name</th>
                                 <th>Type</th>
                                 <th>Price</th>

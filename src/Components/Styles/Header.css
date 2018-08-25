@@ -2,7 +2,7 @@
     color: rgb(241, 14, 14) !important;
 }
 .navbar-default .navbar-nav>li>a {
-    color: rgb(240, 8, 8) !important;
+    color: rgb(190, 228, 22) !important;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     background-color: rgb(120, 194, 86) !important;
@@ -18,5 +18,8 @@
     border-radius: 0;
 }
 .app-logo{
-    width: 36px;
+    width: 20px;
+}
+.primary-color{
+    background-color: #64f77c;
 }
