@@ -1,8 +1,7 @@
 .product-detail .product-detail-img{
     border-right: 1.2px solid #ccc;
     display: block;
-    max-width: 68%;
-    height: 68%;
+    
 }
 
 .product-detail-des-price .list-group-item-text {
@@ -42,4 +41,9 @@
 
 .product-detail-des .top-feature-item p {
     display: list-item;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+    display: block;
+    max-width: 50%;
+    height: auto;
 }

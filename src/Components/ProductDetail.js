@@ -17,7 +17,7 @@ class ProductDetail extends React.Component {
             this.state.isEdit =true;
         }
         this.state.info = this.getProduct();
-        this.handleChange = this.handleChange.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
     }
 
 

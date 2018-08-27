@@ -12,6 +12,7 @@ import {
     Grid,
     Row,
     
+    
 } from 'react-bootstrap';
 
 import './Styles/LoginForm.css';
@@ -32,6 +33,9 @@ class LoginForm extends Component {
         }
         this.onKeyDownHandle = this.onKeyDownHandle.bind(this);
     }
+   
+   
+   
     componentWillMount(event) {
         if(this.state.logged === true) {
             window.location.href = "/";
@@ -122,14 +126,33 @@ class LoginForm extends Component {
                 </Row>
                 <Row>
                     <Col xs={0} md={4} sm={3} lg={4}></Col>
+                    
                     <Col xs={12} md={3} sm={6} lg={3}>
-                        <Button className="btn-signin" type="button" onClick={this.onSubmit.bind(this)}>Sign in</Button>
-                    </Col>
+                            <Button className="btn-signin" type="button" onClick={this.onSubmit.bind(this)} >ĐĂNG NHẬP</Button>
+                        </Col>
+                                           
+                    
+
+               
+                    
+                   
+                    
+                    
+                        <Col xs={12} md={3} sm={6} lg={3}> 
+                            
+                            
+                            <Button >Đăng kí</Button>
+                        
+                        </Col>
                                            
                     <Col xs={12} md={4} sm={3} lg={4}></Col>
+
                 </Row>
             </Grid>
+
+                        
             </Form>
+            
 
 
 

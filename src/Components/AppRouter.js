@@ -25,6 +25,7 @@ class AppRouter extends React.Component {
             <Route key={5} path="/product" component={Products}/>
             <Route key={6} path="/productdetail" component={ProductDetail}/>
             <Route key={7} path="/profile" component={Profile}/>
+            
           </Switch>
         </Router>
       </div>
