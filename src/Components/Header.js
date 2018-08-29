@@ -27,7 +27,7 @@ class Header extends React.Component {
 
     componentDidMount() {
         if(this.state.logged === false) {
-            if(window.location.pathname !== "/login") {
+            if(window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
                 window.location.href = "/login";
             }
         }

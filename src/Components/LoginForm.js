@@ -141,7 +141,7 @@ class LoginForm extends Component {
                         <Col xs={12} md={3} sm={6} lg={3}> 
                             
                             
-                            <Button >Đăng kí</Button>
+                            <Button onClick={()=>{window.location.href="/signup"}}>Đăng kí</Button>
                         
                         </Col>
                                            

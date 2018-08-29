@@ -3,9 +3,9 @@ import {
   HelpBlock,
   FormGroup,
   FormControl,
-  ControlLabel
+  ControlLabel,
+  Button
 } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
 import "./Styles/Signup.css";
 
 export default class Signup extends Component {
@@ -68,16 +68,8 @@ export default class Signup extends Component {
             onChange={this.handleChange}
           />
           <HelpBlock>Please check your email for the code.</HelpBlock>
+          <Button bsStyle="primary" onClick={this.handleConfirmationSubmit}>Confirm</Button>
         </FormGroup>
-        <LoaderButton
-          block
-          bsSize="large"
-          disabled={!this.validateConfirmationForm()}
-          type="submit"
-          isLoading={this.state.isLoading}
-          text="Verify"
-          loadingText="Verifying…"
-        />
       </form>
     );
   }
@@ -110,15 +102,7 @@ export default class Signup extends Component {
             type="password"
           />
         </FormGroup>
-        <LoaderButton
-          block
-          bsSize="large"
-          disabled={!this.validateForm()}
-          type="submit"
-          isLoading={this.state.isLoading}
-          text="Signup"
-          loadingText="Signing up…"
-        />
+        <Button bsStyle="primary" onClick={this.handleSubmit}>Signup</Button>
       </form>
     );
   }
@@ -133,4 +117,3 @@ export default class Signup extends Component {
     );
   }
 }
-export default Signup ;
