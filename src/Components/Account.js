@@ -4,9 +4,7 @@ import {Table, Panel} from 'react-bootstrap';
 import DataUtils from '../Utils/DataUtils';
 
 class Account extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    
 
     buildAccountList() {
         let AccountList = DataUtils.getUserList();

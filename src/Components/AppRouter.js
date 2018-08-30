@@ -9,7 +9,8 @@ import Help from './Help';
 import Products from './Products';
 import Profile from './Profile';
 import ProductDetail from './ProductDetail';
-import Signup from './Signup';
+
+import Index from './Public/Index';
 
 
 class AppRouter extends React.Component {
@@ -19,14 +20,14 @@ class AppRouter extends React.Component {
         <Header key={1} />
         <Router>
           <Switch>
-            <Route key={1} exact path="/" component={Home}/>
+            <Route key={0} exact path="/" component={Index}/>
+            <Route key={1} exact path="/admin" component={Home}/>
             <Route key={2} path="/login" component={Login}/>
             <Route key={3} path="/account" component={Account}/>
             <Route key={4} path="/help" component={Help}/>
             <Route key={5} path="/product" component={Products}/>
             <Route key={6} path="/productdetail" component={ProductDetail}/>
             <Route key={7} path="/profile" component={Profile}/>
-            <Route key={8} path="/signup" component={Signup}/>
           </Switch>
         </Router>
       </div>

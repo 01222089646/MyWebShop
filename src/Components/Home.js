@@ -2,10 +2,7 @@ import React from 'react';
 import {Row , Col , Thumbnail , Grid , Button ,Image} from 'react-bootstrap'
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {logged: true};
-  }
+  
   render() {
     return (
       <div>

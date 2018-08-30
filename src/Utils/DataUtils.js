@@ -1,5 +1,15 @@
-
 let obj = {
+    removeProduct(data) {
+
+    },
+    saveProduct(data) {
+       
+    },
+    createProduct(data) {
+       
+    },
+
+
     getUserList() {
         return [
             {
@@ -40,7 +50,7 @@ let obj = {
         let userList = this.getUserList();
         let userInfo = null;
         for(let index in userList) {
-            if(userList[index].email == username && userList[index].password == password) {
+            if(userList[index].email === username && userList[index].password === password) {
                 userInfo = {
                     email: userList[index].email,
                     name: (userList[index].firstname + " " + userList[index].lastname)
@@ -60,16 +70,17 @@ let obj = {
         return userInfo;
     
     },
-    getProductList() {
-        return [
+    getProductList(type) {
+        let data =  [
             {
                 id: 1,
                 name: "Tai Nghe Chụp Tai Sony MDR-H600A Hi-Res",
                 img: "/images/products/tiki_phone_01.jpg",
                 price: 2990000,
                 type: "Phone",
-                company: "Sony",
+                brand: "Sony",
                 salesoff: 25,
+                catalogid: 1,
                 description: '<div class="top-feature-item bullet-wrap"><p>Sử dụng driver Dynamic HD Audio High-Resolution 40mm phủ Titan </p><p>Cáp Tangle-free tráng bạc giúp giảm nhiễu tối đa</p><p>Đệm tai nghe mềm mại, tạo cảm giác thoải mái khi sử dụng</p><p>Tích hợp microphone giúp trả lời cuộc gọi nhanh chóng</p><p>Cơ chế gập xoay linh hoạt thuận tiện cho di chuyển</p><p>Thiết kế đơn sắc thời thượng với thanh choàng đầu dạng trượt</p><p>Dải âm tần: 5 – 60,000 Hz</p><p>Độ nhạy: 103 dB/mW</p></div>'
             },
             {
@@ -78,7 +89,8 @@ let obj = {
                 img: "images/products/tiki_phone_02.jpg",
                 price: 1420000,
                 type: "Phone",
-                company: "Sony",
+                brand: "Sony",
+                catalogid: 2,
                 salesoff: 25,
                 description: '<div class="top-feature-item bullet-wrap"><p>Trở kháng: 18 Ohm</p><p>Tần số đáp ứng: 18 - 20.000 Hz</p><p>Áp lực âm thanh: 118dB (1kHz/1Vrms)</p><p>Tổng lượng méo: &lt;0.5% (1kHz/100dB)</p><p>Cổng kết nối: 3.5mm</p><p>Pad tai mềm mại, cao cấp làm bằng da</p><p>Dây chống rối với một nút điều khiển thông min</p></div>'
             },
@@ -88,11 +100,57 @@ let obj = {
                 img: "images/products/tiki_phone_03.jpg",
                 price: 99000,
                 type: "Phone",
-                company: "Sony",
+                brand: "Sony",
+                salesoff: 25,
+                catalogid: 2,
+                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+            },
+            {
+                id: 4,
+                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
+                img: "images/products/tiki_phone_03.jpg",
+                price: 99000,
+                type: "Phone",
+                brand: "Sony",
+                salesoff: 25,
+                catalogid: 2,
+                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+            },
+            {
+                id: 5,
+                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
+                img: "images/products/tiki_phone_03.jpg",
+                price: 99000,
+                type: "Phone",
+                brand: "Sony",
+                catalogid: 3,
+                salesoff: 25,
+                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+            },
+            {
+                id: 6,
+                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
+                img: "images/products/tiki_phone_03.jpg",
+                price: 99000,
+                type: "Phone",
+                catalogid: 2,
+                brand: "Sony",
                 salesoff: 25,
                 description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
             }
         ];
+
+        if(type != undefined) {
+            let tmp = [];
+            for(let index in data) {
+                if(data[index].catalogid == type) {
+                    tmp.push(data[index]);
+                } 
+            }
+            data = tmp;
+        }
+
+        return data;
     },
     getProduct(id) {
         let productList = this.getProductList();
