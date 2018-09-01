@@ -1,10 +1,13 @@
 import React from 'react';
 import { FormGroup, InputGroup, FormControl,  Button, Row , Col ,Jumbotron  } from 'react-bootstrap'
-import './Styles/Help.css';
+ import './Styles/Help.css';
 
 
 class Help extends React.Component {
-  
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       

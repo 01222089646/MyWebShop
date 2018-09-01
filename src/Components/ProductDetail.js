@@ -38,7 +38,8 @@ class ProductDetail extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-   
+    
+
     handleChange(event) {
         let name = event.target.name;
         let _info = this.state.info;
@@ -187,7 +188,7 @@ class ProductDetail extends React.Component {
 
     buildImage() {
         let imageTemplate = [];
-        if(this.state.info != null) {
+        if(this.state.info !== null) {
             imageTemplate.push(
                 <div key={1}>
                     <Image className="product-image" src={this.state.info.img} responsive />
@@ -208,9 +209,7 @@ class ProductDetail extends React.Component {
             let HeaderProduct = (
                 <div>
                     <span>{this.state.info.name}</span>
-                    <br/>
                     <span className="product-detail-tool product-detail-edit"><a href="javascript:void(0)" onClick={this.onEdit.bind(this)}>Chỉnh Sửa</a></span>
-                    <br/>
                     <span className="product-detail-tool product-detail-delete"><a href="javascript:void(0)" onClick={this.onRemove.bind(this)}>Xóa</a></span>
                 </div>
             );

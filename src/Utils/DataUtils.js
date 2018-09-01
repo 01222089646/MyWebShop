@@ -1,14 +1,14 @@
+
 let obj = {
     removeProduct(data) {
 
     },
     saveProduct(data) {
-       
+        //Call api (http://guni.com/api/inventory/update)
     },
     createProduct(data) {
-       
+        //Call api (http://guni.com/api/inventory/create)
     },
-
 
     getUserList() {
         return [
@@ -50,7 +50,7 @@ let obj = {
         let userList = this.getUserList();
         let userInfo = null;
         for(let index in userList) {
-            if(userList[index].email === username && userList[index].password === password) {
+            if(userList[index].email == username && userList[index].password == password) {
                 userInfo = {
                     email: userList[index].email,
                     name: (userList[index].firstname + " " + userList[index].lastname)

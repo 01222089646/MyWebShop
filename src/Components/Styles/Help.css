@@ -9,11 +9,10 @@
     /* border: 1px solid #ccc; */
     border-radius: 0px;
 }
-
 .input-group .form-control {
     position: relative;
     z-index: 2;
     float: left;
-    width: 50%;
-    margin-bottom: 0;
+    width: 87%;
+    margin-bottom: 0px;
 }
