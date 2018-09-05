@@ -6,14 +6,35 @@ import DataUtils from '../../Utils/DataUtils';
 const NUMBER_OF_ROW = 3;
 
 class ProductList extends React.Component {
-    getProductList() {
-        let type = this.props.type;
-        return DataUtils.getProductList(type);
-    }
+    constructor(props) {
+        super(props);
 
-    buildProductList() {
+        this.state = {ProductList: []};
+        this.buildProductList = this.buildProductList.bind(this);
+    }
+    componentDidMount() {
+        this.getProductList();
+    }
+    componentWillReceiveProps(props) {
+        
+        if(props.type != this.props.type) {console.log(3535)
+            this.getProductList();
+        }
+    }
+    getProductList() {
+        let type = this.props.type || null;
+        let filter = null;
+        if(type)
+            filter = {"catalog_id": type};
+        DataUtils.getList("/api/inventory/list", filter)
+        .then(this.buildProductList);
+    }
+    buildProductList(res) {
         let productListTemplate = [];
-        let productData = this.getProductList();
+        let productData = [];
+        if(res.Success && res.Data)
+            productData = res.Data;
+
         let productList = [];
         for(let index in productData) {
             productList.push(
@@ -38,19 +59,14 @@ class ProductList extends React.Component {
                 </Row>
             )
         }
-
-
-        return productListTemplate;
+        this.setState({ProductList: productListTemplate});
     }
     render() {
-        let productList = this.buildProductList();
-        console.log(111)
+        console.log(34534, this.props.type)
         return (
             <div style={{marginTop: '10px'}}>
-                <Grid className="show-grid">
-                    
-                        {productList}
-                    
+                <Grid className="show-grid">                    
+                    {this.state.ProductList}
                 </Grid>
             </div>
         )

@@ -1,40 +1,104 @@
 
+let $ = require("jquery");
+const STORE_ID = 1;
+
 let obj = {
-    removeProduct(data) {
-
+    uploadFile() {
+        const data = new FormData();
+        let files = $("#uploadFile")[0].files;
+        data.append('uploadFile', files[0]);
+        //data.append('filename', this.fileName.value);
+        return $.when(
+        $.ajax({
+            url:"http://gunivn.com/guni/index.php/api/upload",
+            data: data,
+            type:"post",
+            contentType:false,
+            processData:false,
+            cache:false,
+            dataType:"json"
+          })
+        );
     },
-    saveProduct(data) {
-        //Call api (http://guni.com/api/inventory/update)
+    getItem(api, id) {
+        let _url = "http://gunivn.com/guni/index.php"+api + "?id="+id+"&store_id=" + STORE_ID;
+        return $.when(
+            $.ajax({
+                method: "GET",
+                url: _url,
+                dataType: 'json'
+            })
+        );
     },
-    createProduct(data) {
-        //Call api (http://guni.com/api/inventory/create)
+    getList(api, filter) {
+        let _url = "http://gunivn.com/guni/index.php"+api + "?store_id=" + STORE_ID;
+        if(filter) {
+            _url += ("&"+ $.param(filter));
+        }
+        return $.when(
+            $.ajax({
+                method: "GET",
+                url: _url,
+                dataType: 'json'
+            })
+        );
     },
-
+    create(api, dataSave) {
+        return $.when(
+            $.ajax({
+                method: "POST",
+                url: "http://127.0.0.1:8000"+api + "?store_id=" + STORE_ID,
+                dataType: 'json',
+                data: {data: dataSave}
+            })
+        );
+    },
+    remove(api, id) {
+        return $.when(
+            $.ajax({
+                method: "POST",
+                url: "http://gunivn.com/guni/index.php" + api,
+                dataType: 'json',
+                data: JSON.stringify({id: id, store_id: STORE_ID})
+            })
+        );
+    },
+    save(api, dataSave) {
+        dataSave['store_id'] = STORE_ID
+        return $.when(
+            $.ajax({
+                method: "POST",
+                url: "http://gunivn.com/guni/index.php" + api,
+                dataType: 'json',
+                data: JSON.stringify({data: dataSave})
+            })
+        );
+    },
     getUserList() {
         return [
             {
                 email: "tranngochieu1003@gmail.com",
-                firstname: "hieu",
-                lastname: "tran",
+                firstname: "Hiếu",
+                lastname: "Trần",
                 password: "abc"
             },
             {
                 email: "tranngochieu1004@gmail.com",
-                firstname: "hieu",
-                lastname: "tran",
+                firstname: "Hiếu",
+                lastname: "Trần",
                 password: "abcd",
                 
             },
             {
                 email: "tranngochieu1005@gmail.com",
-                firstname: "hieu",
-                lastname: "tran",
+                firstname: "Hiếu",
+                lastname: "Trần",
                 password: "abcde"
             },
             {
                 email: "tranngochieu1006@gmail.com",
-                firstname: "hieu",
-                lastname: "tran",
+                firstname: "Hiếu",
+                lastname: "Trần",
                 password: "abcef"
             },
             {
@@ -74,73 +138,65 @@ let obj = {
         let data =  [
             {
                 id: 1,
-                name: "Tai Nghe Chụp Tai Sony MDR-H600A Hi-Res",
-                img: "/images/products/tiki_phone_01.jpg",
-                price: 2990000,
-                type: "Phone",
-                brand: "Sony",
-                salesoff: 25,
+                name: " Trái Táo",
+                img: "images/products/tao 1.jpg",
+                price: 100000,
+                
+                
                 catalogid: 1,
-                description: '<div class="top-feature-item bullet-wrap"><p>Sử dụng driver Dynamic HD Audio High-Resolution 40mm phủ Titan </p><p>Cáp Tangle-free tráng bạc giúp giảm nhiễu tối đa</p><p>Đệm tai nghe mềm mại, tạo cảm giác thoải mái khi sử dụng</p><p>Tích hợp microphone giúp trả lời cuộc gọi nhanh chóng</p><p>Cơ chế gập xoay linh hoạt thuận tiện cho di chuyển</p><p>Thiết kế đơn sắc thời thượng với thanh choàng đầu dạng trượt</p><p>Dải âm tần: 5 – 60,000 Hz</p><p>Độ nhạy: 103 dB/mW</p></div>'
+                
             },
             {
                 id: 2,
-                name: "Tai Nghe Chụp Tai Sennheiser HD 4.20s",
-                img: "images/products/tiki_phone_02.jpg",
-                price: 1420000,
-                type: "Phone",
-                brand: "Sony",
+                name: "Trái Thơm",
+                img: "images/products/thom 1.jpg",
+                price: 100000,
+               
+               
                 catalogid: 2,
-                salesoff: 25,
-                description: '<div class="top-feature-item bullet-wrap"><p>Trở kháng: 18 Ohm</p><p>Tần số đáp ứng: 18 - 20.000 Hz</p><p>Áp lực âm thanh: 118dB (1kHz/1Vrms)</p><p>Tổng lượng méo: &lt;0.5% (1kHz/100dB)</p><p>Cổng kết nối: 3.5mm</p><p>Pad tai mềm mại, cao cấp làm bằng da</p><p>Dây chống rối với một nút điều khiển thông min</p></div>'
+                
             },
             {
                 id: 3,
-                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
-                img: "images/products/tiki_phone_03.jpg",
-                price: 99000,
-                type: "Phone",
-                brand: "Sony",
-                salesoff: 25,
-                catalogid: 2,
-                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+                name: "Trái Xoài",
+                img: "images/products/xoai-1g.jpg",
+                price: 100000,
+               
+               
+               
+                catalogid: 3,
+                
             },
             {
                 id: 4,
-                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
-                img: "images/products/tiki_phone_03.jpg",
-                price: 99000,
-                type: "Phone",
-                brand: "Sony",
-                salesoff: 25,
-                catalogid: 2,
-                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+                name: "Trái Cóc",
+                img: "images/products/coc 1.jpg",
+               
+                price: 100000,
+                catalogid: 4,
+               
             },
             {
                 id: 5,
-                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
-                img: "images/products/tiki_phone_03.jpg",
-                price: 99000,
-                type: "Phone",
-                brand: "Sony",
-                catalogid: 3,
-                salesoff: 25,
-                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+                name: "Trái Ổi",
+                img: "images/products/oi 1.jpg",
+                price: 100000,
+               
+                catalogid: 5,
+               
             },
             {
                 id: 6,
-                name: "Tai Nghe Nhét Tai Sennheiser MX 80",
-                img: "images/products/tiki_phone_03.jpg",
-                price: 99000,
-                type: "Phone",
-                catalogid: 2,
-                brand: "Sony",
-                salesoff: 25,
-                description: '<div class="top-feature-item bullet-wrap"><p>Thiết kế dạng earbud</p><p>Màng loa được làm từ nam châm Neodymium</p><p>Dải tần số 50Hz - 15.000Hz </p><p>Jack cắm 3.5mm</p></div>'
+                name: "Trái Mít ",
+                img: "images/products/mit 1.jpg",
+                price: 100000,
+               
+                catalogid: 6,
+               
             }
         ];
 
-        if(type != undefined) {
+        if(type) {
             let tmp = [];
             for(let index in data) {
                 if(data[index].catalogid == type) {

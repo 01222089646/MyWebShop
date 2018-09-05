@@ -12,6 +12,8 @@ import {
     Panel
     } from 'react-bootstrap';
 
+import UploadFile from './Administration/UploadFile';
+
 import "./Styles/ProductDetail.css";
 
 
@@ -28,7 +30,7 @@ function FieldGroup({ id, label, help, ...props }) {
 class ProductDetail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {Id: null, info: null, isEdit: false};
+        this.state = {Id: null, info: null, isEdit: false, brandList: [], catalogList:[]};
 
         this.state.Id = this.getIdFromQueryString();
         if(this.state.Id === 0) {
@@ -36,14 +38,49 @@ class ProductDetail extends React.Component {
         }
         this.state.info = this.getProduct();
         this.handleChange = this.handleChange.bind(this);
+        this.buildBrandList = this.buildBrandList.bind(this);
     }
 
-    
-
+   
+    buildBrandList() {
+        DataUtils.getList("/api/brand/list")
+        .then((res) => {
+            let _brandList = [];
+            if(res.Success) {
+                for(let i in res.Data) {
+                    _brandList.push(
+                        <option key={i} value={res.Data[i].brand_id}>{res.Data[i].brand_name}</option>
+                    )
+                }
+            }
+            this.setState({brandList: _brandList});
+        })
+    }
+    buildCatalogList() {
+        DataUtils.getList("/api/catalog/list")
+        .then((res) => {
+            let _catalogList = [];
+            if(res.Success) {
+                for(let i in res.Data) {
+                    _catalogList.push(
+                        <option key={i} value={res.Data[i].catalog_id}>{res.Data[i].catalog_name}</option>
+                    )
+                }
+            }
+            this.setState({catalogList: _catalogList});
+        })
+    }
     handleChange(event) {
         let name = event.target.name;
         let _info = this.state.info;
         _info[name] = event.target.value;
+        if(name == "brand_id") {
+            _info['inventory_brand'] = window.jQuery(event.target)[0].selectedOptions[0].innerText;
+        }
+
+        if(name == "catalog_id") {
+            _info['inventory_catalog'] = window.jQuery(event.target)[0].selectedOptions[0].innerText;
+        }
         this.setState({info: _info});
     }
 
@@ -66,17 +103,22 @@ class ProductDetail extends React.Component {
     getProduct() {
         let product = null;
         if(this.state.Id !== 0) {
-            product = DataUtils.getProduct(this.state.Id);
+            DataUtils.getItem("/api/inventory/item", this.state.Id)
+            .then((res) => {
+                if(res.Success && res.Data) {
+                    this.setState({info: res.Data});
+                }
+            });
         } else {
             product = {
                 id: 0,
-                name: "",
-                img: "",
-                price: 0,
-                type: "",
-                brand: "",
-                salesoff: 0,
-                description: ""
+                inventory_name: "",
+                inventory_img: "",
+                inventory_price: 0,
+                inventory_catalog: "",
+                inventory_brand: "",
+                inventory_saleoff: 0,
+                inventory_description: ""
             }
         }
         return product;
@@ -90,26 +132,84 @@ class ProductDetail extends React.Component {
         if(Obj.id !== undefined) {
             Obj.id = parseInt(Obj.id);
         }
-
-        /*if(Obj.id !== undefined) {
-            return Obj.id;
-        } else {
-            return null;
-        }*/
         return Obj.id !== undefined?Obj.id:null;
     }
 
-    onEdit(event) {
+    editHandle(event) {
         this.setState({isEdit: true});
     }
-    onRemove(event) {
-        DataUtils.removeProduct(this.state.info);
-    }
-    onSave(event) {
-        if(this.state.info.id === 0) {
-            DataUtils.createProduct(this.state.info);
+    removeHandle(event) {
+        //DataUtils.remove("/api/inventory/delete", this.state.info.inventory_id);
+        if(!this.state.info.inventory_id)
+        return;
+
+    DataUtils.remove("/api/inventory/delete", this.state.info.inventory_id)
+    .then((res)=>{
+        if(res.Success) {
+            window.jQuery.toast({
+                heading: 'Thành Công',
+                text: 'Xóa sản phẩm thành công.',
+                showHideTransition: 'slide',
+                position: 'bottom-right',
+                icon: 'success',
+            });
+            setTimeout((e)=>{window.location.href="/product"}, 1000);
         } else {
-            DataUtils.saveProduct(this.state.info);
+            window.jQuery.toast({
+                heading: 'Lỗi',
+                text: 'Xóa sản phẩm thất bại.',
+                showHideTransition: 'slide',
+                position: 'bottom-right',
+                icon: 'error'
+            })
+        }
+    });
+    }
+    saveHandle(event) {
+        let api = "/api/inventory/update";
+        let saveData = this.state.info;
+        if(this.state.Id == 0) { 
+            api = "/api/inventory/create";
+            saveData['id'] = 0;
+            delete saveData['inventory_id'];
+        } else {
+            saveData['id'] = saveData['inventory_id'];
+            //delete saveData['inventory_id'];
+        }
+
+        DataUtils.save(api, saveData)
+        .then((res)=>{
+            let msg = "Cập nhật ";
+            if(this.state.info.id == 0) {
+                msg = "Tạo mới "
+            }
+            if(res.Success) {
+                window.jQuery.toast({
+                    heading: 'Thành Công',
+                    text: msg + 'sản phẩm thành công.',
+                    showHideTransition: 'slide',
+                    position: 'bottom-right',
+                    icon: 'success',
+                });
+                setTimeout((e)=>{window.location.href="/product"}, 1000);
+            } else {
+                window.jQuery.toast({
+                    heading: 'Lỗi',
+                    text: msg + 'sản phẩm thất bại.',
+                    showHideTransition: 'slide',
+                    position: 'bottom-right',
+                    icon: 'error'
+                })
+            }
+        });
+    }
+
+    onImageChange(res) {
+        if(res.Success) {
+            let imgPath = "http://gunivn.com/guni/" + res.Data.filepath;
+            let _info = this.state.info;
+            _info['inventory_img'] = imgPath;
+            this.setState({info: _info});
         }
     }
 
@@ -120,66 +220,73 @@ class ProductDetail extends React.Component {
               <FieldGroup
                 id="formControlsText"
                 type="text"
-                name="name"
+                name="inventory_name"
                 label="Tên Sản Phẩm"
                 placeholder="Nhập tên sản phẩm"
-                defaultValue={this.state.info.name}
+                defaultValue={this.state.info.inventory_name}
                 onChange= {this.handleChange}
               />
-              <FieldGroup
-                id="formControlsEmail"
-                type="text"
-                name="img"
-                label="Hình Ảnh"
-                placeholder="Nhập địa chỉ email"
-                defaultValue={this.state.info.img}
-                onChange= {this.handleChange}
-              />
+              <UploadFile label="Ảnh Sản Phẩm" onChange={this.onImageChange.bind(this)} />
 
-              <FieldGroup
+              {/*<FieldGroup
                 id="formControlsType"
                 type="text"
-                name="type"
+                name="inventory_catalog"
                 label="Danh Mục Sản Phẩm"
                 placeholder="Nhập danh mục sản phẩm"
-                defaultValue={this.state.info.type}
+                defaultValue={this.state.info.inventory_catalog}
                 onChange= {this.handleChange}
-              />
+              />*/}
 
-              <FieldGroup
+              {/*<FieldGroup
                 id="formControlsBrand"
                 type="text"
-                name="brand"
+                name="inventory_brand"
                 label="Thương Hiệu"
                 placeholder="Nhập thương hiệu"
-                defaultValue={this.state.info.brand}
+                defaultValue={this.state.info.inventory_brand}
                 onChange= {this.handleChange}
-              />
+              />*/}
+
+
+               <FormGroup controlId={"formControlsCatalog"}>
+                <ControlLabel>Danh Mục Sản Phẩm</ControlLabel>
+                    <FormControl onChange= {this.handleChange} defaultValue={this.state.info.catalog_id} name="catalog_id" componentClass="select" placeholder="Nhập danh mục sản phẩm">
+                        {this.state.catalogList}
+                    </FormControl>  
+                </FormGroup>
+
+              <FormGroup controlId={"formControlsBrand"}>
+                <ControlLabel>Thương Hiệu</ControlLabel>
+                    <FormControl onChange= {this.handleChange} defaultValue={this.state.info.brand_id} name="brand_id" componentClass="select" placeholder="Nhập thương hiệu">
+                        {this.state.brandList}
+                    </FormControl>  
+                </FormGroup>
 
               <FieldGroup
                 id="formControlsPrice"
                 type="number"
-                name="price"
+                name="inventory_price"
                 label="Giá Sản Phẩm"
                 placeholder="Nhập Giá Sản Phẩm"
-                value={this.state.info.price}
+                value={this.state.info.inventory_price}
                 onChange= {this.handleChange}
               />
 
               <FieldGroup
                 id="formControlsSaleoff"
                 type="number"
-                name="salesoff"
+                name="inventory_saleoff"
                 label="Giảm Giá"
                 placeholder="Nhập Phần Trăm"
-                value={this.state.info.salesoff}
+                value={this.state.info.inventory_saleoff}
                 onChange= {this.handleChange}
               />
               <FormGroup controlId="formControlsDescription">
                 <ControlLabel>Mô Tả</ControlLabel>
-                <FormControl defaultValue={this.state.info.description} componentClass="textarea" placeholder="textarea" />
+                <FormControl name="inventory_description" onChange= {this.handleChange} defaultValue={this.state.info.inventory_description} componentClass="textarea" placeholder="textarea" />
               </FormGroup>  
-              <Button type="button" onClick={this.onSave.bind(this)} bsStyle="primary">Lưu</Button>
+              <Button type="button" onClick={this.saveHandle.bind(this)} bsStyle="primary">Lưu</Button>
             </form>
           );
 
@@ -191,7 +298,7 @@ class ProductDetail extends React.Component {
         if(this.state.info !== null) {
             imageTemplate.push(
                 <div key={1}>
-                    <Image className="product-image" src={this.state.info.img} responsive />
+                    <Image className="product-image" src={this.state.info.inventory_img} responsive />
                 </div>
             )
         }
@@ -201,16 +308,14 @@ class ProductDetail extends React.Component {
     buidDescription() {
         let desTemplate = [];
         if(this.state.info != null) {
-            let salesOffPrice = this.state.info.price * (this.state.info.salesoff*0.01);
-            let salesPrice = this.state.info.price - salesOffPrice;
+            let salesOffPrice = parseFloat(this.state.info.inventory_price) * (parseFloat(this.state.info.inventory_saleoff)*0.01);
+            let salesPrice = parseFloat(this.state.info.inventory_price) - salesOffPrice;
             let salePriceTemp = (<CurrencyFormat value={salesPrice} decimalSeparator={'.'} displayType={'text'} thousandSeparator={','} suffix={' đ'} />);
-
-
             let HeaderProduct = (
                 <div>
-                    <span>{this.state.info.name}</span>
-                    <span className="product-detail-tool product-detail-edit"><a href="javascript:void(0)" onClick={this.onEdit.bind(this)}>Chỉnh Sửa</a></span>
-                    <span className="product-detail-tool product-detail-delete"><a href="javascript:void(0)" onClick={this.onRemove.bind(this)}>Xóa</a></span>
+                    <span>{this.state.info.inventory_name}</span>
+                    <span className="product-detail-tool product-detail-edit"><a href="javascript:void(0)" onClick={this.editHandle.bind(this)}>Chỉnh Sửa</a></span>
+                    <span className="product-detail-tool product-detail-delete"><a href="javascript:void(0)" onClick={this.removeHandle.bind(this)}>Xóa</a></span>
                 </div>
             );
 
@@ -218,11 +323,11 @@ class ProductDetail extends React.Component {
                 <div key={1}>
                     <ListGroup>
                         <ListGroupItem className="product-detail-des-name" header={HeaderProduct}>
-                            <span>Thương hiệu: <span className="product-detail-des-company">{this.state.info.brand}</span></span>
+                            <span>Thương hiệu: <span className="product-detail-des-company">{this.state.info.inventory_brand}</span></span>
                         </ListGroupItem>
                         <ListGroupItem className="product-detail-des-price" header={salePriceTemp}>
                             <span>
-                                Tiết kiệm: <span className="product-detail-des-saleoff">{this.state.info.salesoff} %</span>
+                                Tiết kiệm: <span className="product-detail-des-saleoff">{parseFloat(this.state.info.inventory_saleoff)} %</span>
                                 <span>
                                     <CurrencyFormat 
                                         value={salesOffPrice} 
@@ -235,12 +340,12 @@ class ProductDetail extends React.Component {
                             </span>
                             <span>Gía thị trường: &nbsp;
                                 <span>
-                                    <CurrencyFormat value={this.state.info.price} decimalSeparator={'.'} displayType={'text'} thousandSeparator={','} suffix={' đ'} />
+                                    <CurrencyFormat value={(parseFloat(this.state.info.inventory_price))} decimalSeparator={'.'} displayType={'text'} thousandSeparator={','} suffix={' đ'} />
                                 </span>
                             </span>
                         </ListGroupItem>
                         <ListGroupItem header="">
-                            <span dangerouslySetInnerHTML={{__html:this.state.info.description}}></span>
+                            <span dangerouslySetInnerHTML={{__html:this.state.info.inventory_description}}></span>
                         </ListGroupItem>
                     </ListGroup>
                 </div>
@@ -272,8 +377,6 @@ class ProductDetail extends React.Component {
                 </div>
             );
         }
-
-        //let productDetail = this.buildProductDetail();
         let imageTemplate = this.buildImage();
         let desTemplate = this.buidDescription();
         return (

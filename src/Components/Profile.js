@@ -33,7 +33,7 @@ class Profile extends React.Component {
                     </Panel.Body>
                 </Panel>
             </div>
-        </div>);
+        </div>)
     }
 }
 

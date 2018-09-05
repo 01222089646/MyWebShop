@@ -1,17 +1,17 @@
 .navbar-default .navbar-brand {
-    color: rgb(97, 241, 14) !important;
+    color: rgb(97, 241, 14);
 }
 .navbar-default .navbar-nav>li>a {
-    color: rgb(190, 228, 22) !important;
+    color: rgb(190, 228, 22) ;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-    background-color: rgb(120, 194, 86) !important;
+    background-color: rgb(120, 194, 86) ;
 }
 .dropdown-menu {
     width: 100%;
 }
 .dropdown-menu>li>a:hover {
-    background-color: rgb(25, 228, 201) !important;
+    background-color: rgb(25, 228, 201) ;
     opacity: .8;
 }
 .navbar-default {
@@ -20,8 +20,9 @@
 .app-logo{
     width: 20px;
 }
-.primary-color{
-    background-color: #64f77c;
+.primary-color {
+    background-color: #cfdf3e;
+    color: white !important;
 }
 .navbar-profile{
     background-color: #eb3b0f;

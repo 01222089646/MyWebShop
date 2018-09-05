@@ -7,39 +7,54 @@ import $ from 'jquery';
 class Product extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {DataList: []};
         this.onDetail = this.onDetail.bind(this);
+        this.buildProductList = this.buildProductList.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadProductList();
     }
 
     onCreateNew(event) {
         window.location.href = "/productdetail?id=0";
     }
+
     onDetail(event) {
         let Id = $(event.target).parent().attr("id");
         window.location.href = "/productdetail?id="+Id;
         //event.preventDefault();
     }
 
-    buildProductList() {
-        let ProductList = DataUtils.getProductList();
+    loadProductList() {
+        DataUtils.getList("/api/inventory/list", "")
+        .then(this.buildProductList);
+    }
+
+    buildProductList(res) {
+        if(res.Success == false)
+            return [];
+        let ProductList = res.Data;//DataUtils.getProductList();
         let _productList = [];
 
         for(let i in ProductList) {
             _productList.push(
-                <tr key={i} id={ProductList[i].id} onDoubleClick={this.onDetail}>
+                <tr key={i} id={ProductList[i].inventory_id} onDoubleClick={this.onDetail}>
                     <td>{parseInt(i) + 1}</td>
-                    <td>{ProductList[i].name}</td>
-                    <td>{ProductList[i].type}</td>
-                    <td>{ProductList[i].price}</td>
-                    <td>{ProductList[i].salesoff}</td>
+                    <td>{ProductList[i].inventory_name}</td>
+                    <td>{ProductList[i].inventory_catalog}</td>
+                    <td>{ProductList[i].inventory_price}</td>
+                    <td>{ProductList[i].inventory_saleoff}</td>
                 </tr>
             )
         }
 
-        return _productList;
+        this.setState({DataList: _productList});
+        //return _productList;
     }
 
     render() {
-        let _productList = this.buildProductList();
+        //let _productList = this.buildProductList();
         return (
             <div>
                 <Panel className="page-panel" bsStyle="info">
@@ -47,9 +62,7 @@ class Product extends React.Component {
                     <Panel.Title componentClass="h3">Danh Sách Sản Phẩm</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                        <ButtonToolbar>
-                            <Button type="button" onClick={this.onCreateNew.bind(this)}>Tạo Mới</Button>
-                        </ButtonToolbar>;
+                        
                         <Table className="product-list" striped bordered condensed hover>
                             <thead>
                                 <tr>
@@ -61,11 +74,14 @@ class Product extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {_productList}
+                                {this.state.DataList}
                             </tbody>
                         </Table>
                     </Panel.Body>
                 </Panel>
+                         <ButtonToolbar>
+                            <Button type="button" onClick={this.onCreateNew.bind(this)}>Tạo Mới</Button>
+                        </ButtonToolbar>
             </div>
         );
     }

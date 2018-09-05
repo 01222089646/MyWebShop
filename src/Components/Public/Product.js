@@ -9,13 +9,10 @@ class Product extends React.Component {
         super(props);
         this.state = {
             data: {
-                name: "Tai Nghe Chụp Tai Sony MDR-H600A Hi-Res",
-                img: "/images/products/tiki_phone_01.jpg",
+                name: "Trái Táo",
+                img: "/images/products/tao 1.jpg",
                 price: 2990000,
-                type: "Phone",
-                brand: "Sony",
-                salesoff: 25,
-                description: '<div class="top-feature-item bullet-wrap"><p>Sử dụng driver Dynamic HD Audio High-Resolution 40mm phủ Titan </p><p>Cáp Tangle-free tráng bạc giúp giảm nhiễu tối đa</p><p>Đệm tai nghe mềm mại, tạo cảm giác thoải mái khi sử dụng</p><p>Tích hợp microphone giúp trả lời cuộc gọi nhanh chóng</p><p>Cơ chế gập xoay linh hoạt thuận tiện cho di chuyển</p><p>Thiết kế đơn sắc thời thượng với thanh choàng đầu dạng trượt</p><p>Dải âm tần: 5 – 60,000 Hz</p><p>Độ nhạy: 103 dB/mW</p></div>'
+               
             }
         };
         if(props.data) {
@@ -29,7 +26,7 @@ class Product extends React.Component {
 
         return (
             <div>
-                <Thumbnail className="product-item" src="/images/products/tiki_phone_01.jpg" alt="171x180">
+                <Thumbnail className="product-item" src="/images/products/tao 1.jpg" alt="171x180">
                     {this.state.data.name}
                     <p className="product-item-price">
                         <span className="sale-price">
@@ -38,9 +35,7 @@ class Product extends React.Component {
                         <span className="real-price">
                             {realPrice}
                         </span>
-                        <span className="saleoff-price">
-                            -{this.state.data.salesoff}%
-                        </span>
+                       
                     </p>
                     <p>
                         <Button style={{opacity: 0, cursor: "default"}} disabled bsStyle="default">Button</Button>    
