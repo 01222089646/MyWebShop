@@ -102,7 +102,7 @@ export default class Signup extends Component {
             type="password"
           />
         </FormGroup>
-        <Button bsStyle="primary" onClick={this.handleSubmit}>Signup</Button>
+        <Button bsStyle="primary" onClick={this.handleSubmit}>Sign up</Button>
       </form>
     );
   }

@@ -19,25 +19,25 @@ class Help extends React.Component {
          
             <FormGroup >
               <InputGroup >
-                <InputGroup.Addon  >   Vấn đề là gì?   </InputGroup.Addon>
+                <InputGroup.Addon textalign="center"  >   Vấn đề là gì?   </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon> ..Tên và Họ..  </InputGroup.Addon>
+                <InputGroup.Addon textalign="center"> Tên và Họ  </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon>    Số điện thoại    </InputGroup.Addon>
+                <InputGroup.Addon textalign="center">    Số điện thoại    </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon>   .Địa chỉ nhà.   </InputGroup.Addon>
+                <InputGroup.Addon textalign="center">  Địa chỉ nhà  </InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </FormGroup>

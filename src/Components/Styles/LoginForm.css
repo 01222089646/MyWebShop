@@ -1,9 +1,19 @@
 .app-login-form {
     /*width: 450px;*/
-    margin-left: auto;
+   margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
+    margin-top: 200px;
+    background-image: url("https://www.publicdomainpictures.net/pictures/200000/velka/plain-blue-background.jpg");
+    
 }
 .btn-signin {
     float: right;
+}
+
+html {
+    background-image: url("https://www.publicdomainpictures.net/pictures/200000/velka/plain-blue-background.jpg");
+}
+.row {
+    margin-right: -50px;
+    margin-left: -50px;
 }

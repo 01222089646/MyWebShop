@@ -5,13 +5,14 @@
     line-height: 1;
     color: #555;
     text-align: center;
-    background-color: #EE7;
+    background-color: rgb(208, 221, 233);
     border-radius: 0px;
+    width: 200px;
 }
 .input-group .form-control {
     position: relative;
     z-index: 2;
     float: left;
-    width: 87%;
+    width: 500%;
     margin-bottom: 0px;
 }

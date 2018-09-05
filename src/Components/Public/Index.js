@@ -36,7 +36,10 @@ class Index extends React.Component {
     render() {
         let breadcrumb = this.buildBreadcrumb();
         return (
+        
+        
         <div>
+
             <Panel bsStyle="primary" className="app-product">
                 <Panel.Heading>
                 <Panel.Title>
@@ -61,6 +64,7 @@ class Index extends React.Component {
 
                 </Panel.Body>
             </Panel>
+            
 
             
         </div>);
