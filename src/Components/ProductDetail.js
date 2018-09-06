@@ -248,7 +248,7 @@ class ProductDetail extends React.Component {
                 onChange= {this.handleChange}
               />*/}
 
-
+              {/*
                <FormGroup controlId={"formControlsCatalog"}>
                 <ControlLabel>Danh Mục Sản Phẩm</ControlLabel>
                     <FormControl onChange= {this.handleChange} defaultValue={this.state.info.catalog_id} name="catalog_id" componentClass="select" placeholder="Nhập danh mục sản phẩm">
@@ -262,7 +262,7 @@ class ProductDetail extends React.Component {
                         {this.state.brandList}
                     </FormControl>  
                 </FormGroup>
-
+              */}
               <FieldGroup
                 id="formControlsPrice"
                 type="number"
@@ -308,13 +308,15 @@ class ProductDetail extends React.Component {
     buidDescription() {
         let desTemplate = [];
         if(this.state.info != null) {
-            let salesOffPrice = parseFloat(this.state.info.inventory_price) * (parseFloat(this.state.info.inventory_saleoff)*0.01);
+            let salesOffPrice = parseFloat(this.state.info.inventory_price) * (parseFloat(this.state.info.inventory_saleoff)*0.00001);
             let salesPrice = parseFloat(this.state.info.inventory_price) - salesOffPrice;
             let salePriceTemp = (<CurrencyFormat value={salesPrice} decimalSeparator={'.'} displayType={'text'} thousandSeparator={','} suffix={' đ'} />);
             let HeaderProduct = (
                 <div>
-                    <span>{this.state.info.inventory_name}</span>
+                    <span  >{this.state.info.inventory_name}</span>
+                    <br/>
                     <span className="product-detail-tool product-detail-edit"><a href="javascript:void(0)" onClick={this.editHandle.bind(this)}>Chỉnh Sửa</a></span>
+                    <br/>
                     <span className="product-detail-tool product-detail-delete"><a href="javascript:void(0)" onClick={this.removeHandle.bind(this)}>Xóa</a></span>
                 </div>
             );
@@ -327,7 +329,7 @@ class ProductDetail extends React.Component {
                         </ListGroupItem>
                         <ListGroupItem className="product-detail-des-price" header={salePriceTemp}>
                             <span>
-                                Tiết kiệm: <span className="product-detail-des-saleoff">{parseFloat(this.state.info.inventory_saleoff)} %</span>
+                                Tiết kiệm: <span className="product-detail-des-saleoff"></span>
                                 <span>
                                     <CurrencyFormat 
                                         value={salesOffPrice} 

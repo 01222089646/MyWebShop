@@ -1,6 +1,6 @@
 
 let $ = require("jquery");
-const STORE_ID = 1;
+const STORE_ID = 7;
 
 let obj = {
     uploadFile() {

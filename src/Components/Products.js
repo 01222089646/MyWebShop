@@ -1,7 +1,7 @@
 import React from 'react';
 import {Panel, Table, ButtonToolbar, Button} from 'react-bootstrap';
 import DataUtils from '../Utils/DataUtils';
-
+import "./Styles/Products.css";
 import $ from 'jquery';
 
 class Product extends React.Component {
@@ -80,7 +80,7 @@ class Product extends React.Component {
                     </Panel.Body>
                 </Panel>
                          <ButtonToolbar>
-                            <Button type="button" onClick={this.onCreateNew.bind(this)}>Tạo Mới</Button>
+                            <Button type="button" onClick={this.onCreateNew.bind(this)} className="ccc">Tạo Mới</Button>
                         </ButtonToolbar>
             </div>
         );
