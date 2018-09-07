@@ -11,7 +11,7 @@ class Product extends React.Component {
             data: {
                 name: "Trái Táo",
                 img: "/images/products/tao 1.jpg",
-                price: 2990000,
+                price: 100000,
                
             }
         };
@@ -26,7 +26,7 @@ class Product extends React.Component {
 
         return (
             <div>
-                <Thumbnail className="product-item" src="/images/products/tao 1.jpg" alt="171x180">
+                <Thumbnail className="product-item" src="/images/products/tao 1.jpg" alt="">
                     {this.state.data.name}
                     <p className="product-item-price">
                         <span className="sale-price">

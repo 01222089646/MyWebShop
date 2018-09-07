@@ -325,7 +325,7 @@ class ProductDetail extends React.Component {
                 <div key={1}>
                     <ListGroup>
                         <ListGroupItem className="product-detail-des-name" header={HeaderProduct}>
-                            <span>Thương hiệu: <span className="product-detail-des-company">{this.state.info.inventory_brand}</span></span>
+                            
                         </ListGroupItem>
                         <ListGroupItem className="product-detail-des-price" header={salePriceTemp}>
                             <span>
